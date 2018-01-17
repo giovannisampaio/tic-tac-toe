@@ -174,23 +174,6 @@ class Board extends React.Component {
       </div>
     );
   }
-    /*
-    let rows = [[0,1,2],[3,4,5],[6,7,8]];
-
-    return (
-      <div>
-        <div className="board-row">
-          {rows[0].map((n, i) => this.renderSquare(n))}
-        </div>
-        <div className="board-row">
-          {rows[1].map((n, i) => this.renderSquare(n))}
-        </div>
-        <div className="board-row">
-          {rows[2].map((n, i) => this.renderSquare(n))}
-        </div>
-      </div>
-    );
-    */
 }
 
 function Square(props) {
