@@ -19,13 +19,17 @@ class Game extends React.Component {
     };
   }
 
+  computerPlay() {
+
+  }
+
   handleClick(i) {
     // takes a copy of the history from the start until the selected step
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     // takes a copy of the current board
     const squares = current.squares.slice();
-    const prepare = this.state.prepare
+    const prepare = this.state.prepare;
     const position = current.position.slice();
     if (calculateWinner(squares) || squares[i] || prepare) {
       return;
@@ -71,29 +75,31 @@ class Game extends React.Component {
   }
 
   restart() {
-    this.setState(this.getInitialState());
+      this.setState(this.getInitialState());
   }
 
 
   render() {
     // take a copy of the current state
     const history = this.state.history;
-    const current = history[this.state.stepNumber];
+    const stepNumber = this.state.stepNumber;
+    const current = history[stepNumber];
     const position = current.position;
     const winner = calculateWinner(current.squares);
     const prepare = this.state.prepare;
-
+    const finished = false;
+    
     let status;
     if (winner) {
       current.squares.winSquares = winner[3];
       status = 'Winner: ' + winner[0];
+    } else if (!winner && stepNumber === 9) {
+      status = 'It"s a tie!';
     } else if (prepare) {
       status = <div><button onClick={() => this.choose('X')}>X</button><button onClick={() => this.choose('O')}>O</button></div>
     } else {
       status = 'Next Plater: ' + (this.state.xIsNext ? 'X' : 'O');
     }
-
-
 
     const moves = history.map((step, move) => {
       const desc = move ?
@@ -179,7 +185,6 @@ class Board extends React.Component {
 function Square(props) {
   let red = props.winner ? ' red' : '';
   return (
-    
     <button className={"square" + red} onClick={props.onClick}>
       {props.value}
     </button>
